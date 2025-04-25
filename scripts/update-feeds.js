@@ -26,6 +26,9 @@ if (fs.existsSync(dotenvPath)) {
 const Parser = require('rss-parser');
 const { OpenAI } = require('openai');
 
+// 从配置文件中导入RSS源配置
+const { config } = require('../config/rss-config.js');
+
 // RSS解析器配置
 const parser = new Parser({
   customFields: {
@@ -48,40 +51,6 @@ const openai = new OpenAI({
   baseURL: "https://api.siliconflow.cn/v1",
   apiKey: OPENAI_API_KEY,
 });
-
-// RSS源配置
-const config = {
-  sources: [
-    // 科技类
-    {
-      name: "Hacker News Best",
-      url: "https://hnrss.org/best",
-      category: "资讯",
-    },
-    {
-      name: "Github Trending Today",
-      url: "https://rsshub.rssforever.com/github/trending/daily/any",
-      category: "项目",
-    },
-    {
-      name: "Hugging Face Daily Papers",
-      url: "https://rsshub.rssforever.com/huggingface/daily-papers",
-      category: "科研",
-    },
-    {
-      name: "Hugging Face Blog",
-      url: "https://rsshub.rssforever.com/huggingface/blog",
-      category: "科研",
-    },
-    {
-      name: "Product Hunt Today",
-      url: "https://rsshub.rssforever.com/producthunt/today",
-      category: "产品",
-    }
-  ],
-  maxItemsPerFeed: 20,
-  dataPath: "./data",
-};
 
 // 确保数据目录存在
 function ensureDataDir() {
