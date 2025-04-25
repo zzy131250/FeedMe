@@ -43,7 +43,7 @@ jobs:
       - name: 更新RSS源数据
         run: node scripts/update-feeds.js
         env:
-          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           
       # === 构建部署部分 ===
       - name: 构建项目

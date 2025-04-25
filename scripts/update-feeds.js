@@ -40,9 +40,9 @@ const parser = new Parser({
 });
 
 // 从环境变量中获取API密钥
-const OPENAI_API_KEY = process.env.SILICONFLOW_API_KEY;
+const OPENAI_API_KEY = process.env.LLM_API_KEY;
 if (!OPENAI_API_KEY) {
-  console.error('环境变量SILICONFLOW_API_KEY未设置，无法生成摘要');
+  console.error('环境变量LLM_API_KEY未设置，无法生成摘要');
   process.exit(1);
 }
 

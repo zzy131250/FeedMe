@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 
 // 从环境变量中获取API密钥
-const OPENAI_API_KEY = process.env.SILICONFLOW_API_KEY;
+const OPENAI_API_KEY = process.env.LLM_API_KEY;
 
 // 创建OpenAI客户端，但仅在服务器端可用
 let openai: OpenAI | null = null;
