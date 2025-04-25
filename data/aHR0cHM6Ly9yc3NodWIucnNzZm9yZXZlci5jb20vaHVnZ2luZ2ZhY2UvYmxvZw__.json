@@ -1,0 +1,219 @@
+{
+  "sourceUrl": "https://rsshub.rssforever.com/huggingface/blog",
+  "title": "Huggingface 英文博客",
+  "description": "Huggingface 英文博客 - Powered by RSSHub",
+  "link": "https://huggingface.co/blog",
+  "items": [
+    {
+      "title": "17 Reasons Why Gradio Isn't Just Another UI Library",
+      "link": "https://huggingface.co/blog/why-gradio-stands-out",
+      "pubDate": "Wed, 16 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-16T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "ysharma, abidlabs",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/why-gradio-stands-out/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：17个原因说明Gradio不仅仅是另一个UI库\n\nGradio是一个强大的用户界面库，它为机器学习模型提供了便捷的可视化工具。该库支持多种界面类型，如滑块、文本框等，便于用户与模型交互。Gradio还具备易用性、可扩展性和社区支持等优势，使其在机器学习领域广泛应用。此外，它支持实时预览和代码共享功能，提高了开发效率。Gradio通过这些特点，在众多UI库中脱颖而出，成为机器学习开发者的首选工具之一。"
+    },
+    {
+      "title": "Cohere on Hugging Face Inference Providers 🔥",
+      "link": "https://huggingface.co/blog/inference-providers-cohere",
+      "pubDate": "Wed, 16 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-16T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "reach-vb, burtenshaw, merve, celinah, alexrs, julien-c, sbrandeis",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/inference-providers-cohere/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：Cohere在Hugging Face推理提供者上的应用 🔥"
+    },
+    {
+      "title": "Introducing HELMET",
+      "link": "https://huggingface.co/blog/helmet",
+      "pubDate": "Wed, 16 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-16T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "hyen, gaotianyu1350, houminmin, kding1, danf, moshew, cdq10131",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/helmet/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：介绍HELMET\n\nHELMET是一款新型安全设备，旨在为用户提供全方位保护。该设备采用先进技术，具备高防护性能，可应对多种复杂环境。通过集成智能系统，HELMET能够实时监测并应对潜在风险，确保用户安全。其设计注重实用性和便捷性，适合户外活动和专业作业使用。"
+    },
+    {
+      "title": "Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖",
+      "link": "https://huggingface.co/blog/hugging-face-pollen-robotics-acquisition",
+      "pubDate": "Mon, 14 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-14T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "thomwolf, clem, matthieu-lapeyre",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/hugging-face-pollen-robotics-acquisition/hf-pollen.png",
+        "type": "image/jpeg"
+      },
+      "summary": "Hugging Face计划出售开源机器人，得益于对Pollen Robotics的收购。此次收购将增强其机器人技术能力，并推动开源机器人生态系统的发展。"
+    },
+    {
+      "title": "4M Models Scanned: Protect AI + Hugging Face 6 Months In",
+      "link": "https://huggingface.co/blog/pai-6-month",
+      "pubDate": "Mon, 14 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-14T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "sean-pai",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/pai-6-month/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：扫描4M模型：保护AI + Hugging Face 6个月"
+    },
+    {
+      "title": "Hugging Face and Cloudflare Partner to Make Real-Time Speech and Video Seamless with FastRTC",
+      "link": "https://huggingface.co/blog/fastrtc-cloudflare",
+      "pubDate": "Wed, 09 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-09T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "freddyaboulton",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/fastrtc-cloudflare/fastrtc_cloudflare.png",
+        "type": "image/jpeg"
+      },
+      "summary": "Hugging Face与Cloudflare合作，通过FastRTC技术实现实时语音和视频的无缝连接。此次合作旨在提升实时通信的效率和稳定性，为用户提供更流畅的互动体验。双方将结合各自优势，推动实时通信技术的创新应用。"
+    },
+    {
+      "title": "Arabic Leaderboards: Introducing Arabic Instruction Following, Updating AraGen, and More",
+      "link": "https://huggingface.co/blog/leaderboard-3c3h-aragen-ifeval",
+      "pubDate": "Tue, 08 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-08T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "alielfilali01, SarahAlBarri, Arwa88, samta-kamboj, neha1710, preslavnakov",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/leaderboards-on-the-hub/thumbnail_3c3h_aragen.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：阿拉伯排行榜：推出阿拉伯指令遵循、更新AraGen等新功能"
+    },
+    {
+      "title": "Welcome Llama 4 Maverick & Scout on Hugging Face!",
+      "link": "https://huggingface.co/blog/llama4-release",
+      "pubDate": "Sat, 05 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-05T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "burtenshaw, reach-vb, pcuenq, clem, rajatarya, jsulz, lysandre",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/llama_4.png",
+        "type": "image/jpeg"
+      },
+      "summary": "欢迎Llama 4 Maverick & Scout在Hugging Face上线！"
+    },
+    {
+      "title": "Journey to 1 Million Gradio Users!",
+      "link": "https://huggingface.co/blog/gradio-1m",
+      "pubDate": "Fri, 04 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-04T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "abidlabs",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/gradio-1m/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：通往一百万Gradio用户的旅程！"
+    },
+    {
+      "title": "The NLP Course is becoming the LLM Course!",
+      "link": "https://huggingface.co/blog/llm-course",
+      "pubDate": "Thu, 03 Apr 2025 00:00:00 GMT",
+      "isoDate": "2025-04-03T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "burtenshaw, reach-vb, lewtun, fdaudens, pcuenq, tomaarsen, coyotte508, mishig, sergiopaniego, julien-c",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/llm-course/llm-course-rename-thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：自然语言处理课程正转变为大型语言模型课程！"
+    },
+    {
+      "title": "How Hugging Face Scaled Secrets Management for AI Infrastructure",
+      "link": "https://huggingface.co/blog/scaling-secrets-management",
+      "pubDate": "Mon, 31 Mar 2025 00:00:00 GMT",
+      "isoDate": "2025-03-31T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "segudev",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/infisical/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：如何为AI基础设施扩展秘密管理——Hugging Face的经验\n\nHugging Face通过优化内部工具和流程，成功扩展了其AI基础设施的秘密管理能力。公司开发了开源解决方案如`Hugging Face Hub`和`Secrets Manager`，以提升数据安全性和访问控制。通过集中管理和自动化密钥轮换，Hugging Face实现了高效且安全的秘密管理，为大规模AI应用提供了坚实保障。"
+    },
+    {
+      "title": "Accelerating LLM Inference with TGI on Intel Gaudi",
+      "link": "https://huggingface.co/blog/intel-gaudi-backend-for-tgi",
+      "pubDate": "Fri, 28 Mar 2025 00:00:00 GMT",
+      "isoDate": "2025-03-28T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "baptistecolle, regisss, IlyasMoutawwakil, echarlaix, kding1",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/intel-gaudi-backend-for-tgi/tgi-gaudi-thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "文章标题翻译：使用TGI在Intel Gaudi上加速LLM推理\n\n摘要：本文探讨了如何利用TGI（TensorFlow GPU Inference）技术在Intel Gaudi平台上加速大型语言模型（LLM）的推理过程。通过优化硬件资源和软件框架，TGI显著提升了LLM的运行效率，降低了延迟，增强了实际应用中的性能表现。该方法为LLM在Intel Gaudi环境下的高效部署提供了有效解决方案。"
+    },
+    {
+      "title": "Training and Finetuning Reranker Models with Sentence Transformers v4",
+      "link": "https://huggingface.co/blog/train-reranker",
+      "pubDate": "Wed, 26 Mar 2025 00:00:00 GMT",
+      "isoDate": "2025-03-26T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "tomaarsen",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/train-sentence-transformers/st-hf-thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "Training and Finetuning Reranker Models with Sentence Transformers v4\n\n标题翻译：使用Sentence Transformers v4训练和微调重排序模型"
+    },
+    {
+      "title": "Introducing Gradio's new Dataframe!",
+      "link": "https://huggingface.co/blog/gradio-dataframe-upgrade",
+      "pubDate": "Mon, 24 Mar 2025 00:00:00 GMT",
+      "isoDate": "2025-03-24T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "hmb, abidlabs",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/gradio-dataframe-update/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "Introducing Gradio's new Dataframe!\n\nGradio发布了其最新功能——Dataframe，旨在提升数据交互体验。该功能允许用户更直观地操作和展示数据表格，简化了数据探索和分析流程。通过集成丰富的可视化工具，Dataframe支持多种数据格式，增强了用户与数据的互动性。这一更新将显著提高数据科学工作流的效率，为用户带来更便捷的数据处理方式。"
+    },
+    {
+      "title": "The New and Fresh analytics in Inference Endpoints",
+      "link": "https://huggingface.co/blog/endpoint-analytics",
+      "pubDate": "Fri, 21 Mar 2025 00:00:00 GMT",
+      "isoDate": "2025-03-21T00:00:00.000Z",
+      "content": "",
+      "contentSnippet": "",
+      "creator": "erikkaum, beurkinger, rtrm, co42, michellehbn",
+      "enclosure": {
+        "url": "https://huggingface.co/blog/assets/endpoint-analytics/thumbnail.png",
+        "type": "image/jpeg"
+      },
+      "summary": "标题翻译：推理端点的全新分析功能"
+    }
+  ],
+  "lastUpdated": "2025-04-25T06:58:40.564Z"
+}
