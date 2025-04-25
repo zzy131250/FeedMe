@@ -23,17 +23,16 @@ function isAuthorized(request: NextRequest): boolean {
 }
 
 export async function GET(request: NextRequest) {
-  // 检查cron是否启用
-  if (!config.cron.enabled) {
-    return NextResponse.json({ success: false, message: "Cron is disabled" }, { status: 400 })
+  // 检查更新功能是否启用
+  if (!config.updateEnabled) {
+    return NextResponse.json({ success: false, message: "Updates are disabled" }, { status: 400 })
   }
 
   // 验证请求
   const isDev = process.env.NODE_ENV === "development"
-  const isVercelCron = request.headers.get("x-vercel-cron") === "1"
   const hasApiKey = isAuthorized(request)
 
-  if (!(isDev || isVercelCron || hasApiKey)) {
+  if (!(isDev || hasApiKey)) {
     return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 })
   }
 

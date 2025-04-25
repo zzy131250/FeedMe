@@ -4,16 +4,11 @@ export interface RssSource {
   category: string
 }
 
-export interface CronConfig {
-  schedule: string // cron表达式，例如 "0 */6 * * *" 表示每6小时
-  enabled: boolean
-}
-
 export interface AppConfig {
   sources: RssSource[]
-  cron: CronConfig
   maxItemsPerFeed: number
   dataPath: string
+  updateEnabled: boolean  // 更新为简单的启用/禁用标志
 }
 
 // 默认配置
@@ -46,12 +41,9 @@ export const config: AppConfig = {
       category: "产品",
     }
   ],
-  cron: {
-    schedule: "0 */6 * * *", // 每6小时执行一次
-    enabled: true,
-  },
   maxItemsPerFeed: 20,
   dataPath: "./data",
+  updateEnabled: true,  // 默认启用更新功能
 }
 
 export const defaultSource = config.sources[0]
