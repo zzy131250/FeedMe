@@ -12,7 +12,7 @@ export default function Home() {
       <div className="container py-10 mx-auto max-w-4xl">
         <div className="flex justify-between items-center mb-6">
           <Link href="/" className="text-4xl font-bold hover:text-primary transition-colors">
-            feedme
+            😋feedme
           </Link>
           <ThemeToggle />
         </div>

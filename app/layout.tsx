@@ -8,7 +8,21 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "feedme",
   description: "从多个信息源获取最新内容，AI 生成中文摘要",
-  generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: [
+      {
+        url: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="80">😋</text></svg>',
+        type: 'image/svg+xml',
+      },
+    ],
+    shortcut: [
+      {
+        url: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="80">😋</text></svg>',
+        type: 'image/svg+xml',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
