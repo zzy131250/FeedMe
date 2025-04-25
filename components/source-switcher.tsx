@@ -39,7 +39,7 @@ export function SourceSwitcher() {
       </PopoverTrigger>
       <PopoverContent className="w-full md:w-[300px] p-0">
         <Command>
-          <CommandInput placeholder="搜索信息源..." />
+          <CommandInput placeholder="搜索信息源..." autoFocus={false} />
           <CommandList>
             <CommandEmpty>未找到匹配的信息源</CommandEmpty>
             {Object.entries(groupedSources).map(([category, categorySources]) => (
