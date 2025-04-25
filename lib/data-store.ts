@@ -1,8 +1,10 @@
 import { config } from "@/config/rss-config"
 import type { FeedData, FeedItem } from "@/lib/types"
 
-// 移除服务器端文件系统操作，改为使用静态导入
-// 在浏览器环境中，我们通过动态导入JSON文件来获取数据
+/**
+ * 从静态数据文件加载RSS数据
+ * 在Next.js静态导出模式下，通过动态导入JSON文件获取数据
+ */
 export async function loadFeedData(sourceUrl: string): Promise<FeedData | null> {
   try {
     // 使用URL的哈希作为文件名，与GitHub Actions中相同的逻辑
@@ -23,18 +25,18 @@ export async function loadFeedData(sourceUrl: string): Promise<FeedData | null> 
   }
 }
 
-// 这些函数在客户端不使用，但保留接口以保持代码兼容性
-export async function saveFeedData(sourceUrl: string, data: FeedData): Promise<void> {
-  console.warn("saveFeedData is not available in browser environment")
-  return
-}
-
+/**
+ * 获取所有缓存的RSS源URL
+ */
 export async function getAllCachedSources(): Promise<string[]> {
   // 从配置中获取所有源URL，因为我们无法动态检索文件系统
   return config.sources.map(source => source.url)
-}
+          }
 
-// 合并函数仍然可以在客户端使用
+/**
+ * 合并新旧Feed条目
+ * 注：此函数在客户端不使用，仅保留用于scripts/update-feeds.js
+ */
 export async function mergeFeedItems(
   oldItems: FeedItem[] = [],
   newItems: FeedItem[] = [],

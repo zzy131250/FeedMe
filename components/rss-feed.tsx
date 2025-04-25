@@ -6,13 +6,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
-import { updateFeed } from "@/lib/update-service"
 import { loadFeedData } from "@/lib/data-store"
 import type { FeedData } from "@/lib/types"
 import { findSourceByUrl } from "@/config/rss-config"
 import { ExternalLink } from "lucide-react"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { mockFeedData } from "@/lib/mock-data" // 导入模拟数据
 
 export function RssFeed({ defaultSource }: { defaultSource: string }) {
   const searchParams = useSearchParams()
@@ -21,38 +18,23 @@ export function RssFeed({ defaultSource }: { defaultSource: string }) {
   const [feedData, setFeedData] = useState<FeedData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [summaryError, setSummaryError] = useState<string | null>(null)
 
   const fetchFeed = async (url: string) => {
     try {
       setLoading(true)
       setError(null)
-      setSummaryError(null)
 
-      // 尝试从缓存加载数据
       const cachedData = await loadFeedData(url)
-
+      
       if (cachedData) {
         setFeedData(cachedData)
-        setLoading(false)
       } else {
-        try {
-          // 如果没有缓存数据，则更新源
-          const updatedData = await updateFeed(url)
-          setFeedData(updatedData)
-        } catch (err) {
-          // 如果在浏览器环境中无法更新，使用模拟数据
-          console.warn("使用模拟数据替代:", url)
-          const mockData = mockFeedData[url] || mockFeedData.default
-          setFeedData(mockData)
-        }
-        setLoading(false)
+        setError("数据为空，可能是数据源出错。")
       }
     } catch (err) {
       console.error("Error fetching feed:", err)
-      // 使用模拟数据作为后备
-      const mockData = mockFeedData[url] || mockFeedData.default
-      setFeedData(mockData)
+      setError("数据获取失败，可能是数据源出错。")
+    } finally {
       setLoading(false)
     }
   }
@@ -87,12 +69,6 @@ export function RssFeed({ defaultSource }: { defaultSource: string }) {
           )}
         </div>
       </div>
-
-      {summaryError && (
-        <Alert>
-          <AlertDescription>{summaryError}</AlertDescription>
-        </Alert>
-      )}
 
       {loading ? (
         <div className="space-y-6">
