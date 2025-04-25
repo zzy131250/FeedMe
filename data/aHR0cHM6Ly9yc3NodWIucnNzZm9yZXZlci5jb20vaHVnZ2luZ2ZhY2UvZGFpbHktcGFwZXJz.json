@@ -35,6 +35,16 @@
       "summary": "降维技术对分析和可视化高维数据至关重要，但传统方法如t-SNE和PCA在表示能力和可解释性间存在权衡。本文提出一种新方法，通过高斯加权线性变换结合线性方法的可解释性和非线性变换的表达力，构建高低维空间之间的非线性映射。该算法在实现复杂非线性变换的同时，保留了线性方法的可解释性，每个变换可独立分析。模型提供强大的降维能力和透明的空间洞察，包括识别抑制维度和空间伸缩的方法，帮助理解算法如何保留和修改几何关系。为促进应用，强调开发用户友好软件包。"
     },
     {
+      "title": "RefVNLI: Towards Scalable Evaluation of Subject-driven Text-to-image Generation",
+      "link": "https://arxiv.org/abs/2504.17502",
+      "pubDate": "Thu, 24 Apr 2025 08:44:51 GMT",
+      "isoDate": "2025-04-24T08:44:51.000Z",
+      "content": "Subject-driven text-to-image (T2I) generation aims to produce images that align with a given textual description, while preserving the visual identity from a referenced subject image. Despite its broad downstream applicability -- ranging from enhanced personalization in image generation to consistent character representation in video rendering -- progress in this field is limited by the lack of reliable automatic evaluation. Existing methods either assess only one aspect of the task (i.e., textual alignment or subject preservation), misalign with human judgments, or rely on costly API-based evaluation. To address this, we introduce RefVNLI, a cost-effective metric that evaluates both textual alignment and subject preservation in a single prediction. Trained on a large-scale dataset derived from video-reasoning benchmarks and image perturbations, RefVNLI outperforms or matches existing baselines across multiple benchmarks and subject categories (e.g., Animal, Object), achieving up to 6.4-point gains in textual alignment and 8.5-point gains in subject consistency. It also excels with lesser-known concepts, aligning with human preferences at over 87\\% accuracy.",
+      "contentSnippet": "Subject-driven text-to-image (T2I) generation aims to produce images that align with a given textual description, while preserving the visual identity from a referenced subject image. Despite its broad downstream applicability -- ranging from enhanced personalization in image generation to consistent character representation in video rendering -- progress in this field is limited by the lack of reliable automatic evaluation. Existing methods either assess only one aspect of the task (i.e., textual alignment or subject preservation), misalign with human judgments, or rely on costly API-based evaluation. To address this, we introduce RefVNLI, a cost-effective metric that evaluates both textual alignment and subject preservation in a single prediction. Trained on a large-scale dataset derived from video-reasoning benchmarks and image perturbations, RefVNLI outperforms or matches existing baselines across multiple benchmarks and subject categories (e.g., Animal, Object), achieving up to 6.4-point gains in textual alignment and 8.5-point gains in subject consistency. It also excels with lesser-known concepts, aligning with human preferences at over 87\\% accuracy.",
+      "creator": "Aviv Slobodkin, Hagai Taitelbaum, Yonatan Bitton, Brian Gordon, Michal Sokolik, Nitzan Bitton Guetta, Almog Gueta, Royi Rassin, Itay Laish, Dani Lischinski, Idan Szpektor",
+      "summary": "RefVNLI是一种用于评估主题驱动文本到图像生成的可扩展指标。该指标通过单一预测同时评估文本一致性和主题保留，在多个基准测试和主题类别（如动物、物体）中表现优于现有基线，在文本一致性和主题一致性方面分别提升6.4和8.5个百分点，且对不常见概念也能以87%以上的准确率与人类偏好保持一致。"
+    },
+    {
       "title": "Breaking the Modality Barrier: Universal Embedding Learning with Multimodal LLMs",
       "link": "https://arxiv.org/abs/2504.17432",
       "pubDate": "Thu, 24 Apr 2025 06:51:52 GMT",
@@ -125,6 +135,16 @@
       "summary": "QuaDMix是一种用于高效LLM预训练的质量-多样性平衡数据选择框架。该框架通过统一参数化数据采样函数，综合考虑数据质量和多样性，优化数据分布。QuaDMix采用领域分类和多元质量标准，并借鉴RegMix方法加速参数搜索。实验表明，QuaDMix在多个基准测试中平均提升性能7.2%，优于独立优化质量与多样性的策略，验证了平衡数据质量与多样性的必要性和有效性。"
     },
     {
+      "title": "Boosting Generative Image Modeling via Joint Image-Feature Synthesis",
+      "link": "https://arxiv.org/abs/2504.16064",
+      "pubDate": "Tue, 22 Apr 2025 13:41:42 GMT",
+      "isoDate": "2025-04-22T13:41:42.000Z",
+      "content": "Latent diffusion models (LDMs) dominate high-quality image generation, yet integrating representation learning with generative modeling remains a challenge. We introduce a novel generative image modeling framework that seamlessly bridges this gap by leveraging a diffusion model to jointly model low-level image latents (from a variational autoencoder) and high-level semantic features (from a pretrained self-supervised encoder like DINO). Our latent-semantic diffusion approach learns to generate coherent image-feature pairs from pure noise, significantly enhancing both generative quality and training efficiency, all while requiring only minimal modifications to standard Diffusion Transformer architectures. By eliminating the need for complex distillation objectives, our unified design simplifies training and unlocks a powerful new inference strategy: Representation Guidance, which leverages learned semantics to steer and refine image generation. Evaluated in both conditional and unconditional settings, our method delivers substantial improvements in image quality and training convergence speed, establishing a new direction for representation-aware generative modeling.",
+      "contentSnippet": "Latent diffusion models (LDMs) dominate high-quality image generation, yet integrating representation learning with generative modeling remains a challenge. We introduce a novel generative image modeling framework that seamlessly bridges this gap by leveraging a diffusion model to jointly model low-level image latents (from a variational autoencoder) and high-level semantic features (from a pretrained self-supervised encoder like DINO). Our latent-semantic diffusion approach learns to generate coherent image-feature pairs from pure noise, significantly enhancing both generative quality and training efficiency, all while requiring only minimal modifications to standard Diffusion Transformer architectures. By eliminating the need for complex distillation objectives, our unified design simplifies training and unlocks a powerful new inference strategy: Representation Guidance, which leverages learned semantics to steer and refine image generation. Evaluated in both conditional and unconditional settings, our method delivers substantial improvements in image quality and training convergence speed, establishing a new direction for representation-aware generative modeling.",
+      "creator": "Theodoros Kouzelis, Efstathios Karypidis, Ioannis Kakogeorgiou, Spyros Gidaris, Nikos Komodakis",
+      "summary": "标题翻译：通过联合图像-特征合成提升生成式图像建模\n\n本文提出一种新的生成式图像建模框架，通过扩散模型联合建模来自变分自编码器的低级图像潜空间和来自预训练自监督编码器（如DINO）的高级语义特征，实现图像-特征对的生成。该方法仅需少量修改标准扩散Transformer架构，无需复杂蒸馏目标，简化训练并解锁新的推理策略——表示引导。在条件和无条件设置下，该方法显著提升图像质量和训练收敛速度，为表示感知生成式建模开辟新方向。"
+    },
+    {
       "title": "ViSMaP: Unsupervised Hour-long Video Summarisation by Meta-Prompting",
       "link": "https://arxiv.org/abs/2504.15921",
       "pubDate": "Tue, 22 Apr 2025 10:06:01 GMT",
@@ -135,5 +155,5 @@
       "summary": "ViSMap是一种无监督的长时间视频摘要系统，通过元提示技术生成小时级视频摘要。该系统解决现有模型在处理长视频时面临的挑战，如事件稀疏分布和缺乏预分割。ViSMaP利用大型语言模型（LLM）生成长视频的伪摘要，并将其作为训练数据，避免了对长视频进行昂贵标注的需求。通过迭代优化伪摘要，ViSMaP在多个数据集上实现了与全监督模型相当的性能，且跨领域泛化能力强。"
     }
   ],
-  "lastUpdated": "2025-04-25T08:12:44.795Z"
+  "lastUpdated": "2025-04-25T09:03:19.271Z"
 }
