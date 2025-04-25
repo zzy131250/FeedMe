@@ -44,23 +44,10 @@ jobs:
         run: node scripts/update-feeds.js
         env:
           SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
-
-      # === 检测自定义域名 ===
-      - name: 检测自定义域名
-        id: check_cname
-        run: |
-          CUSTOM_DOMAIN=""
-          if [ -f "CNAME" ]; then
-            CUSTOM_DOMAIN=$(cat CNAME)
-            echo "Custom domain found: $CUSTOM_DOMAIN"
-          fi
-          echo "NEXT_PUBLIC_CUSTOM_DOMAIN=$CUSTOM_DOMAIN" >> $GITHUB_ENV
           
       # === 构建部署部分 ===
       - name: 构建项目
         run: pnpm build
-        env:
-          NEXT_PUBLIC_CUSTOM_DOMAIN: ${{ env.NEXT_PUBLIC_CUSTOM_DOMAIN }}
       
       - name: 设置Pages
         uses: actions/configure-pages@v4
