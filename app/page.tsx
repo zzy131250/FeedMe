@@ -15,7 +15,9 @@ export default function Home() {
         <p className="text-muted-foreground mb-8">从多个信息源获取最新内容，并通过 AI 生成中文摘要</p>
 
         <div className="mb-8">
-          <SourceSwitcher />
+          <Suspense fallback={<div className="w-full md:w-[300px] h-10 bg-muted rounded-md animate-pulse" />}>
+            <SourceSwitcher />
+          </Suspense>
         </div>
 
         <Suspense fallback={<FeedSkeleton />}>
