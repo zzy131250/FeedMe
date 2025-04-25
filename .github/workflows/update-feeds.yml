@@ -1,0 +1,16 @@
+name: 更新RSS源
+
+on:
+  schedule:
+    # 每6小时执行一次 (与原cron配置保持一致)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  update-feeds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 触发更新API
+        run: |
+          curl -X GET "${{ secrets.VERCEL_APP_URL }}/api/update-feeds" \
+            -H "Authorization: Bearer ${{ secrets.UPDATE_API_KEY }}" 
