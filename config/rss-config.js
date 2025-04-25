@@ -8,35 +8,50 @@ export const config = {
   sources: [
     // 科技类
     {
-      name: "Hacker News Best",
+      name: "Hacker News 近期最佳",
       url: "https://hnrss.org/best",
       category: "科技资讯",
     },
     {
-      name: "Github Trending Today",
+      name: "Github 今日热门",
       url: "https://rsshub.rssforever.com/github/trending/daily/any",
       category: "代码项目",
     },
     {
-      name: "Hugging Face Daily Papers",
+      name: "Hugging Face 每日论文",
       url: "https://rsshub.rssforever.com/huggingface/daily-papers",
       category: "科研论文",
     },
     {
-      name: "Hugging Face Blog",
+      name: "Hugging Face 博客",
       url: "https://rsshub.rssforever.com/huggingface/blog",
-      category: "科研论文",
+      category: "技术博客",
     },
     {
-      name: "Product Hunt Today",
+      name: "Google 开发者博客",
+      url: "https://rsshub.rssforever.com/google/developers/en",
+      category: "技术博客",
+    },
+    {
+      name: "Google 研究博客",
+      url: "https://rsshub.rssforever.com/google/research",
+      category: "技术博客",
+    },
+    {
+      name: "Product Hunt 今日热门",
       url: "https://rsshub.rssforever.com/producthunt/today",
       category: "产品资讯",
     },
     {
-      name: "V2EX 最热主题",
+      name: "V2EX 今日热门",
       url: "https://rsshub.rssforever.com/v2ex/topics/hot",
       category: "论坛",
     },
+    {
+      name: "Bangumi 本月热门",
+      url: "https://rsshub.rssforever.com/bangumi.tv/anime/followrank",
+      category: "番剧资讯",
+    }
   ],
   maxItemsPerFeed: 30,
   dataPath: "./data",
