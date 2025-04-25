@@ -2,8 +2,8 @@ name: 更新数据并部署
 
 on:
   schedule:
-    # 每6小时执行一次
-    - cron: '0 */6 * * *'
+    # 每1小时执行一次
+    - cron: '0 * * * *'
   push:
     branches: [main]  # 当推送到main分支时
   workflow_dispatch:  # 允许手动触发

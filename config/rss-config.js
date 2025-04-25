@@ -6,7 +6,6 @@
 // 默认配置
 export const config = {
   sources: [
-    // 科技类
     {
       name: "Hacker News 近期最佳",
       url: "https://hnrss.org/best",
