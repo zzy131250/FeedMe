@@ -1,19 +1,29 @@
-name: 更新RSS源数据
+name: 更新数据并部署
 
 on:
   schedule:
     # 每6小时执行一次
     - cron: '0 */6 * * *'
+  push:
+    branches: [main]  # 当推送到main分支时
   workflow_dispatch:  # 允许手动触发
 
-# 添加权限设置
+# 设置权限
 permissions:
-  contents: write  # 给予写入仓库内容的权限
+  contents: read
+  pages: write
+  id-token: write
+
+# 允许一个并发部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  update-feeds:
+  update-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # === 数据更新部分 ===
       - name: 检出代码
         uses: actions/checkout@v4
         
@@ -34,16 +44,19 @@ jobs:
         run: node scripts/update-feeds.js
         env:
           SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+
+      # === 构建部署部分 ===
+      - name: 构建项目
+        run: pnpm build
       
-      - name: 提交更新的数据
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add data/
-          git diff --staged --quiet || git commit -m "更新RSS源数据 [skip ci]"
-          
-      - name: 推送更改
-        uses: ad-m/github-push-action@master
+      - name: 设置Pages
+        uses: actions/configure-pages@v4
+      
+      - name: 上传构建结果
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }} 
+          path: ./out
+
+      - name: 部署到GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 

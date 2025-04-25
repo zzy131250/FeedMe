@@ -43,3 +43,6 @@ Thumbs.db
 # logs
 logs
 *.log
+
+# data directory - stored locally and updated on deploy
+data/
