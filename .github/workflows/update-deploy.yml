@@ -49,6 +49,16 @@ jobs:
       - name: 构建项目
         run: pnpm build
       
+      # 如果存在CNAME文件，确保它被复制到输出目录
+      - name: 复制CNAME到输出目录
+        run: |
+          if [ -f "CNAME" ]; then
+            cp CNAME ./out/
+            echo "已复制CNAME文件到输出目录"
+          else
+            echo "未找到CNAME文件，跳过"
+          fi
+      
       - name: 设置Pages
         uses: actions/configure-pages@v4
       
