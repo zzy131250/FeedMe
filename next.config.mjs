@@ -11,11 +11,11 @@ const nextConfig = {
   },
   output: 'export',
   
-  // 只设置trailingSlash，确保所有路径都是一致的
+  // 设置trailingSlash
   trailingSlash: true,
   
-  // 在生产环境下动态设置assetPrefix
-  assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
+  // 修复assetPrefix设置，必须以斜杠开头或是绝对URL
+  basePath: process.env.NODE_ENV === 'production' ? '/feedme' : '',
   
   // 解决 fs 和 path 模块的问题
   webpack: (config, { isServer }) => {
