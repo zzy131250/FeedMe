@@ -10,7 +10,7 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'export',
-  basePath: process.env.NODE_ENV === 'production' ? '/feedme' : '',
+  basePath: process.env.NEXT_PUBLIC_CUSTOM_DOMAIN ? '' : (process.env.NODE_ENV === 'production' ? '/feedme' : ''),
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
