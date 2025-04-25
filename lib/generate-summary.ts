@@ -1,18 +1,37 @@
-"use server"
-
 import OpenAI from 'openai';
 
 // 从环境变量中获取API密钥
 const OPENAI_API_KEY = process.env.SILICONFLOW_API_KEY;
 
-// 创建OpenAI客户端
-const openai = new OpenAI({
-  baseURL: "https://api.siliconflow.cn/v1",
-  apiKey: OPENAI_API_KEY,
-});
+// 创建OpenAI客户端，但仅在服务器端可用
+let openai: OpenAI | null = null;
+try {
+  // 仅在服务器端运行时初始化
+  if (typeof window === 'undefined' && OPENAI_API_KEY) {
+    openai = new OpenAI({
+      baseURL: "https://api.siliconflow.cn/v1",
+      apiKey: OPENAI_API_KEY,
+    });
+  }
+} catch (error) {
+  console.warn("OpenAI client not initialized (expected in browser)");
+}
 
 export async function generateSummary(title: string, content: string): Promise<string> {
+  // 在浏览器环境中，我们不能调用AI API
+  // 如果在客户端执行，返回一个占位符消息
+  if (typeof window !== 'undefined') {
+    console.warn("摘要生成功能在浏览器中不可用。在GitHub Actions中，这将被正常处理。");
+    return "摘要将在GitHub Actions更新过程中生成。";
+  }
+
+  // 以下代码只会在服务器端执行
   try {
+    // 如果API密钥不可用，返回一个默认消息
+    if (!openai) {
+      return "API密钥不可用，无法生成摘要。";
+    }
+
     // 清理内容 - 移除HTML标签
     const cleanContent = content.replace(/<[^>]*>?/gm, "");
 

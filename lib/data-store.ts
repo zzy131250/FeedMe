@@ -1,87 +1,40 @@
-"use server"
-
-import fs from "fs"
-import path from "path"
 import { config } from "@/config/rss-config"
 import type { FeedData, FeedItem } from "@/lib/types"
 
-// 确保数据目录存在
-async function ensureDataDir() {
-  const dataDir = path.join(process.cwd(), config.dataPath)
-  if (!fs.existsSync(dataDir)) {
-    await fs.promises.mkdir(dataDir, { recursive: true })
-  }
-  return dataDir
-}
-
-// 获取源的文件路径
-async function getSourceFilePath(sourceUrl: string): Promise<string> {
-  const dataDir = await ensureDataDir()
-  // 使用URL的哈希作为文件名，避免非法字符
-  const sourceHash = Buffer.from(sourceUrl).toString("base64").replace(/[/+=]/g, "_")
-  return path.join(dataDir, `${sourceHash}.json`)
-}
-
-// 保存源数据到文件
-export async function saveFeedData(sourceUrl: string, data: FeedData): Promise<void> {
-  const filePath = await getSourceFilePath(sourceUrl)
-
-  try {
-    await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8")
-    console.log(`Saved data for ${sourceUrl} to ${filePath}`)
-  } catch (error) {
-    console.error(`Error saving data for ${sourceUrl}:`, error)
-    throw new Error(`Failed to save feed data: ${error instanceof Error ? error.message : String(error)}`)
-  }
-}
-
-// 从文件加载源数据
+// 移除服务器端文件系统操作，改为使用静态导入
+// 在浏览器环境中，我们通过动态导入JSON文件来获取数据
 export async function loadFeedData(sourceUrl: string): Promise<FeedData | null> {
-  const filePath = await getSourceFilePath(sourceUrl)
-
   try {
-    if (!fs.existsSync(filePath)) {
+    // 使用URL的哈希作为文件名，与GitHub Actions中相同的逻辑
+    const sourceHash = Buffer.from(sourceUrl).toString("base64").replace(/[/+=]/g, "_")
+    
+    // 动态导入数据文件
+    // 注意：在静态构建时，这会被打包进输出文件
+    try {
+      const data = await import(`@/data/${sourceHash}.json`)
+      return data.default as FeedData
+    } catch (error) {
+      console.warn(`No data found for ${sourceUrl}`)
       return null
     }
-
-    const data = await fs.promises.readFile(filePath, "utf-8")
-    return JSON.parse(data) as FeedData
   } catch (error) {
     console.error(`Error loading data for ${sourceUrl}:`, error)
     return null
   }
 }
 
-// 获取所有已缓存的源URL
-export async function getAllCachedSources(): Promise<string[]> {
-  const dataDir = await ensureDataDir()
-
-  try {
-    const files = await fs.promises.readdir(dataDir)
-    const sources: string[] = []
-
-    for (const file of files) {
-      if (file.endsWith(".json")) {
-        try {
-          const data = await fs.promises.readFile(path.join(dataDir, file), "utf-8")
-          const feedData = JSON.parse(data) as FeedData
-          if (feedData.sourceUrl) {
-            sources.push(feedData.sourceUrl)
-          }
-        } catch {
-          // Skip invalid files
-        }
-      }
-    }
-
-    return sources
-  } catch (error) {
-    console.error("Error getting cached sources:", error)
-    return []
-  }
+// 这些函数在客户端不使用，但保留接口以保持代码兼容性
+export async function saveFeedData(sourceUrl: string, data: FeedData): Promise<void> {
+  console.warn("saveFeedData is not available in browser environment")
+  return
 }
 
-// 合并新旧数据，只保留最新的条目并且只为新条目生成摘要
+export async function getAllCachedSources(): Promise<string[]> {
+  // 从配置中获取所有源URL，因为我们无法动态检索文件系统
+  return config.sources.map(source => source.url)
+}
+
+// 合并函数仍然可以在客户端使用
 export async function mergeFeedItems(
   oldItems: FeedItem[] = [],
   newItems: FeedItem[] = [],

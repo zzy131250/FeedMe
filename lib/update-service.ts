@@ -1,13 +1,25 @@
-"use server"
-
 import { fetchRssFeed } from "@/lib/rss"
 import { generateSummary } from "@/lib/generate-summary"
 import { loadFeedData, saveFeedData, mergeFeedItems } from "@/lib/data-store"
 import { config } from "@/config/rss-config"
 import type { FeedData } from "@/lib/types"
 
+// 针对客户端检查
+const isClient = typeof window !== 'undefined';
+
 // 更新单个源
 export async function updateFeed(sourceUrl: string): Promise<FeedData> {
+  // 客户端不支持此功能
+  if (isClient) {
+    console.warn("updateFeed功能在浏览器环境中不可用");
+    // 返回已缓存的数据，如果有的话
+    const cachedData = await loadFeedData(sourceUrl);
+    if (cachedData) {
+      return cachedData;
+    }
+    throw new Error("无法在浏览器环境中更新源");
+  }
+
   console.log(`Updating feed for ${sourceUrl}`)
 
   try {
@@ -66,6 +78,12 @@ export async function updateFeed(sourceUrl: string): Promise<FeedData> {
 
 // 更新所有源
 export async function updateAllFeeds(): Promise<Record<string, boolean>> {
+  // 客户端不支持此功能
+  if (isClient) {
+    console.warn("updateAllFeeds功能在浏览器环境中不可用");
+    return {};
+  }
+
   console.log("Starting update for all feeds")
 
   const results: Record<string, boolean> = {}

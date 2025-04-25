@@ -1,7 +1,6 @@
-"use server"
-
 import Parser from "rss-parser"
 import type { FeedItem } from "./types"
+import { loadFeedData } from "./data-store"
 
 // Create a new parser instance
 const parser = new Parser({
@@ -15,6 +14,17 @@ const parser = new Parser({
 
 export async function fetchRssFeed(url: string) {
   try {
+    // 首先尝试从静态数据加载
+    const cachedData = await loadFeedData(url)
+    if (cachedData) {
+      console.log(`Using cached data for ${url}`)
+      return cachedData
+    }
+
+    // 在开发环境中可能需要从远程获取
+    // 但在静态构建时，这可能会失败
+    console.warn(`No cached data available for ${url}, this may fail in production build`)
+    
     // Fetch the feed directly from the server
     const response = await fetch(url, { next: { revalidate: 60 } })
 

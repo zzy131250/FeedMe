@@ -8,7 +8,6 @@ export interface AppConfig {
   sources: RssSource[]
   maxItemsPerFeed: number
   dataPath: string
-  updateEnabled: boolean  // 更新为简单的启用/禁用标志
 }
 
 // 默认配置
@@ -43,7 +42,6 @@ export const config: AppConfig = {
   ],
   maxItemsPerFeed: 20,
   dataPath: "./data",
-  updateEnabled: true,  // 默认启用更新功能
 }
 
 export const defaultSource = config.sources[0]
