@@ -19,8 +19,18 @@ export const config = {
       category: "科技资讯",
     },
     {
+      name: "Hacker News 历史每日前十",
+      url: "https://rsshub.rssforever.com/github/issue/headllines/hackernews-daily",
+      category: "科技资讯",
+    },
+    {
       name: "Github 今日热门",
       url: "https://rsshub.rssforever.com/github/trending/daily/any",
+      category: "代码项目",
+    },
+    {
+      name: "Github 本周热门",
+      url: "https://rsshub.rssforever.com/github/trending/weekly/any",
       category: "代码项目",
     },
     {

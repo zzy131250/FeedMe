@@ -29,11 +29,11 @@ export function RssFeed({ defaultSource }: { defaultSource: string }) {
       if (cachedData) {
         setFeedData(cachedData)
       } else {
-        setError("数据为空，可能是数据源出错。")
+        setError("数据为空，请检查数据源是否出错🫠")
       }
     } catch (err) {
       console.error("Error fetching feed:", err)
-      setError("数据获取失败，可能是数据源出错。")
+      setError("数据获取失败，请检查数据源是否出错🫠")
     } finally {
       setLoading(false)
     }
