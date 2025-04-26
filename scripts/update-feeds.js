@@ -39,16 +39,30 @@ const parser = new Parser({
   },
 });
 
-// 从环境变量中获取API密钥
+// 从环境变量中获取API配置
 const OPENAI_API_KEY = process.env.LLM_API_KEY;
+const OPENAI_API_BASE = process.env.LLM_API_BASE;
+const OPENAI_MODEL_NAME = process.env.LLM_NAME;
+
+// 验证必要的环境变量
 if (!OPENAI_API_KEY) {
   console.error('环境变量LLM_API_KEY未设置，无法生成摘要');
   process.exit(1);
 }
 
+if (!OPENAI_API_BASE) {
+  console.error('环境变量LLM_API_BASE未设置，无法生成摘要');
+  process.exit(1);
+}
+
+if (!OPENAI_MODEL_NAME) {
+  console.error('环境变量LLM_NAME未设置，无法生成摘要');
+  process.exit(1);
+}
+
 // 创建OpenAI客户端
 const openai = new OpenAI({
-  baseURL: "https://api.siliconflow.cn/v1",
+  baseURL: OPENAI_API_BASE,
   apiKey: OPENAI_API_KEY,
 });
 
@@ -122,7 +136,7 @@ ${cleanContent.slice(0, 5000)} // 限制内容长度以避免超出token限制
 `;
 
     const completion = await openai.chat.completions.create({
-      model: "THUDM/GLM-4-9B-0414",
+      model: OPENAI_MODEL_NAME,
       messages: [
         {
           role: "user",

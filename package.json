@@ -2,7 +2,6 @@
   "name": "feedme",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://seanium.github.io/feedme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
