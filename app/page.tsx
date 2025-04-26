@@ -5,6 +5,8 @@ import { SourceSwitcher } from "@/components/source-switcher"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { defaultSource } from "@/config/rss-config"
+import { Github } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
   return (
@@ -14,7 +16,20 @@ export default function Home() {
           <Link href="/" className="text-4xl font-bold hover:text-primary transition-colors">
             😋FeedMe
           </Link>
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <a
+              href="https://github.com/Seanium/feedme"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub 仓库"
+            >
+              <Button variant="outline" size="icon" className="relative">
+                <Github className="h-[1.2rem] w-[1.2rem]" />
+                <span className="sr-only">GitHub 仓库</span>
+              </Button>
+            </a>
+          </div>
         </div>
         <p className="text-muted-foreground mb-8">从多个信息源获取最新内容，并通过 AI 生成中文摘要</p>
 
