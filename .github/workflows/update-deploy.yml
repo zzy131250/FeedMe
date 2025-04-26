@@ -44,6 +44,8 @@ jobs:
         run: node scripts/update-feeds.js
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
+          LLM_NAME: ${{ secrets.LLM_NAME }}
           
       # === 构建部署部分 ===
       - name: 构建项目
