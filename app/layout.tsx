@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
   title: "FeedMe",
-  description: "从多个信息源获取最新内容，AI 生成中文摘要",
+  description: "从多个信息源获取最新内容，AI 生成摘要",
   generator: 'v0.dev',
   icons: {
     icon: [

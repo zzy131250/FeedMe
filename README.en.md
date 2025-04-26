@@ -36,7 +36,7 @@
 ## Key Features
 
 - **Multi-source RSS Aggregation**: Fetch and integrate RSS content from multiple information sources
-- **AI Summary Generation**: Automatically generate Chinese summaries for articles using LLM
+- **AI Summary Generation**: Automatically generate summaries for articles using LLM
 - **Scheduled Updates**: Regularly auto-update content via GitHub Actions
 - **Category Browsing**: View different information sources by category
 - **Theme Switching**: Support for light and dark themes

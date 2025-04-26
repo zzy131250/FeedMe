@@ -119,7 +119,7 @@ export function RssFeed({ defaultSource }: { defaultSource: string }) {
                     <TabsTrigger value="original">原文内容</TabsTrigger>
                   </TabsList>
                   <TabsContent value="summary" className="space-y-2">
-                    <div className="text-sm text-muted-foreground mb-2">由 AI 生成的中文摘要：</div>
+                    <div className="text-sm text-muted-foreground mb-2">由 AI 生成的摘要：</div>
                     <div className="text-foreground whitespace-pre-line">{item.summary || "无法生成摘要。"}</div>
                   </TabsContent>
                   <TabsContent value="original">
