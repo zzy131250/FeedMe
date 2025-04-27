@@ -4,13 +4,14 @@
 
 <div align="center">
 
-[![Next.js](https://img.shields.io/badge/Next.js-19-black?style=flat&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-19-blue?style=flat&logo=react)](https://reactjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-111111?style=flat&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![shadcn/ui](https://img.shields.io/badge/shadcn/ui-111111?style=flat&logo=shadcnui&logoColor=white)](https://ui.shadcn.com/)
 [![RSS](https://img.shields.io/badge/RSS-Feed-orange?style=flat&logo=rss)](https://en.wikipedia.org/wiki/RSS)
-[![OpenAI](https://img.shields.io/badge/OpenAI-API-412991?style=flat&logo=openai)](https://openai.com/)
-[![pnpm](https://img.shields.io/badge/pnpm-8.4.0-F69220?style=flat&logo=pnpm)](https://pnpm.io/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai&logoColor=white)](https://openai.com/)
+[![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)](https://pnpm.io/)
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Seanium/feedme/update-deploy.yml?branch=main&style=flat&logo=github)](https://github.com/Seanium/feedme/actions)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Active-4EA94B?style=flat&logo=github)](https://feedme.icu)
@@ -20,7 +21,7 @@
 </div>
 
 <p align="center">
-  <b>AI-powered RSS aggregator for smart summaries and easy static site deployment</b>
+  <b>AI-powered RSS reader, deployable to GitHub Pages</b>
 </p>
 
 <p align="center">
@@ -150,11 +151,11 @@ This project uses GitHub Actions for automatic deployment to GitHub Pages, with 
 
 ## Star History
 
-<a href="https://www.star-history.com/#Seanium/feedme&Date">
+<a href="https://www.star-history.com/#Seanium/FeedMe&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Seanium/feedme&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Seanium/feedme&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Seanium/feedme&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Seanium/FeedMe&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Seanium/FeedMe&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Seanium/FeedMe&type=Date" />
  </picture>
 </a>
 
