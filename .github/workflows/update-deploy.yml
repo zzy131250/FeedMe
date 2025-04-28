@@ -105,11 +105,14 @@ jobs:
 
   deploy-vercel:
     # --- 修改：检查启用变量 ---
-    # 仅当仓库变量 ENABLE_VERCEL_DEPLOYMENT 设置为 'true' 时运行
-    # 如果变量不存在或值不是 'true'，则跳过此作业
-    if: secrets.VERCEL_TOKEN && secrets.VERCEL_ORG_ID && secrets.VERCEL_PROJECT_ID
+    # 仅当所需的secrets都存在时运行
     needs: update-data # 依赖数据更新作业
     runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    if: env.VERCEL_TOKEN != '' && env.VERCEL_ORG_ID != '' && env.VERCEL_PROJECT_ID != ''
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -121,7 +124,7 @@ jobs:
           path: ./data
 
       # 注意：这里仍然需要 VERCEL_TOKEN 等 secrets。
-      # 如果 ENABLE_VERCEL_DEPLOYMENT 为 true 但 secrets 未设置，此步骤会失败，这是预期的。
+      # 如果上面的if条件通过但secrets未设置（几乎不可能），此步骤会失败，这是预期的。
       - name: 部署到Vercel
         uses: amondnet/vercel-action@v20
         with:
@@ -133,11 +136,13 @@ jobs:
 
   deploy-huggingface:
     # --- 修改：检查启用变量 ---
-    # 仅当仓库变量 ENABLE_HUGGINGFACE_DEPLOYMENT 设置为 'true' 时运行
-    # 如果变量不存在或值不是 'true'，则跳过此作业
-    if: secrets.HF_TOKEN && secrets.HF_SPACE
+    # 仅当所需的secrets都存在时运行
     needs: update-data # 依赖数据更新作业
     runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE: ${{ secrets.HF_SPACE }}
+    if: env.HF_TOKEN != '' && env.HF_SPACE != ''
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -165,7 +170,7 @@ jobs:
         run: pnpm build
 
       # 注意：这里仍然需要 HF_TOKEN 等 secrets。
-      # 如果 ENABLE_HUGGINGFACE_DEPLOYMENT 为 true 但 secrets 未设置，此步骤会失败，这是预期的。
+      # 如果上面的if条件通过但secrets未设置（几乎不可能），此步骤会失败，这是预期的。
       - name: 部署到Hugging Face
         uses: huggingface/hf-space-cli-action@main
         with:
