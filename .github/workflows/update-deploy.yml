@@ -14,43 +14,76 @@ permissions:
   pages: write
   id-token: write
 
-# 允许一个并发部署
+# 允许一个并发部署 (针对 GitHub Pages)
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  update-and-deploy:
+  update-data:
     runs-on: ubuntu-latest
     steps:
       # === 数据更新部分 ===
       - name: 检出代码
         uses: actions/checkout@v4
-        
+
       - name: 设置Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
+
       - name: 安装pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8.4.0
-          
+
       - name: 安装依赖
         run: pnpm install
-        
+
       - name: 更新RSS源数据
         run: node scripts/update-feeds.js
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
           LLM_NAME: ${{ secrets.LLM_NAME }}
-          
-      # === 构建部署部分 ===
+
+      # --- 修改：使用 Artifact 传递数据 ---
+      - name: 上传数据 Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-artifact # 定义 Artifact 名称
+          path: ./data       # 指定要上传的目录
+
+  deploy-github-pages:
+    needs: update-data # 依赖数据更新作业
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8.4.0
+
+      - name: 安装依赖
+        run: pnpm install
+
+      # --- 修改：下载数据 Artifact ---
+      - name: 下载数据 Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: data-artifact # 使用与上传时相同的名称
+          path: ./data       # 下载到指定目录 (会覆盖或创建 ./data)
+
       - name: 构建项目
         run: pnpm build
-      
+
       # 如果存在CNAME文件，确保它被复制到输出目录
       - name: 复制CNAME到输出目录
         run: |
@@ -60,15 +93,78 @@ jobs:
           else
             echo "未找到CNAME文件，跳过"
           fi
-      
+
       - name: 设置Pages
         uses: actions/configure-pages@v4
-      
-      - name: 上传构建结果
+
+      - name: 上传构建结果 (Pages Artifact)
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
       - name: 部署到GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
+
+  deploy-vercel:
+    if: secrets.VERCEL_TOKEN != '' # 仅在提供了 Vercel Token 时运行
+    needs: update-data # 依赖数据更新作业
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      # --- 修改：下载数据 Artifact ---
+      - name: 下载数据 Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: data-artifact # 使用与上传时相同的名称
+          path: ./data       # 下载到指定目录
+
+      - name: 部署到Vercel
+        uses: amondnet/vercel-action@v20 # 注意：确认此 Action 是否会处理构建，如果会，确保它在下载数据后能找到
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./ # Vercel action 需要知道项目根目录
+          vercel-args: '--prod' # 部署到生产环境
+
+  deploy-huggingface:
+    if: secrets.HF_TOKEN != '' # 仅在提供了 Hugging Face Token 时运行
+    needs: update-data # 依赖数据更新作业
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      # --- 修改：下载数据 Artifact ---
+      - name: 下载数据 Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: data-artifact # 使用与上传时相同的名称
+          path: ./data       # 下载到指定目录
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8.4.0
+
+      - name: 安装依赖
+        run: pnpm install
+
+      - name: 构建项目
+        run: pnpm build
+
+      - name: 部署到Hugging Face
+        uses: huggingface/hf-space-cli-action@main
+        with:
+          space_id: ${{ secrets.HF_SPACE }}
+          token: ${{ secrets.HF_TOKEN }}
+          source: out     # 指定包含静态文件的构建输出目录
+          type: static   # 部署类型为静态网站

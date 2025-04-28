@@ -1,10 +1,10 @@
 // 命令行脚本，用于更新所有RSS源数据
 // 供GitHub Actions直接调用
 
-// 加载.env.local文件中的环境变量
+// 加载.env文件中的环境变量
 const path = require('path');
 const fs = require('fs');
-const dotenvPath = path.resolve(process.cwd(), '.env.local');
+const dotenvPath = path.resolve(process.cwd(), '.env');
 if (fs.existsSync(dotenvPath)) {
   const dotenvContent = fs.readFileSync(dotenvPath, 'utf8');
   dotenvContent.split('\n').forEach(line => {
@@ -18,9 +18,27 @@ if (fs.existsSync(dotenvPath)) {
       process.env[key] = value;
     }
   });
-  console.log('已从.env.local加载环境变量');
+  console.log('已从.env加载环境变量');
 } else {
-  console.warn('未找到.env.local文件，请确保环境变量已设置');
+  // 尝试加载.env.local作为后备
+  const localEnvPath = path.resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(localEnvPath)) {
+    const dotenvContent = fs.readFileSync(localEnvPath, 'utf8');
+    dotenvContent.split('\n').forEach(line => {
+      const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let value = match[2] || '';
+        if (value.startsWith('"') && value.endsWith('"')) {
+          value = value.replace(/^"|"$/g, '');
+        }
+        process.env[key] = value;
+      }
+    });
+    console.log('已从.env.local加载环境变量');
+  } else {
+    console.warn('未找到.env或.env.local文件，请确保环境变量已设置');
+  }
 }
 
 const Parser = require('rss-parser');

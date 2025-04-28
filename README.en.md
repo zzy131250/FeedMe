@@ -52,9 +52,32 @@
 - **Deployment**: [GitHub Actions](https://github.com/features/actions), [GitHub Pages](https://pages.github.com/)
 - **RSS Parsing**: [rss-parser](https://www.npmjs.com/package/rss-parser)
 
-## Running Steps
+## Local Development
 
-### Local Development
+### Method 1: Using Docker (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/Seanium/feedme.git
+cd feedme
+
+# Copy the example environment file and fill in your API keys
+cp .env.example .env
+
+# Start Docker container(Update data and start the development server)
+docker-compose up
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to view the application
+
+Update RSS data:
+```bash
+# Run update command in a new terminal window
+docker exec -it feedme pnpm update-feeds
+# After data update, the Next.js development server automatically detects changes and updates the page
+```
+
+### Method 2: Step-by-Step Setup
 
 1. **Clone the Repository**
    ```bash
@@ -69,7 +92,12 @@
 
 3. **Configure Environment Variables**
    
-   Create a `.env.local` file with the following content:
+   Copy the example environment file and edit it:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Fill in the following content:
    ```
    LLM_API_KEY=your_api_key
    LLM_API_BASE=LLM service API base URL (e.g., https://api.siliconflow.cn/v1)
@@ -96,7 +124,9 @@
    - URL
    - Category
 
-### Production Deployment
+## Production Deployment
+
+### Method 1: GitHub Pages Deployment
 
 This project uses GitHub Actions for automatic deployment to GitHub Pages, with a single workflow handling both data updates and website deployment.
 
@@ -119,7 +149,26 @@ This project uses GitHub Actions for automatic deployment to GitHub Pages, with 
    
    Manually trigger the "Update Data and Deploy" workflow from the Actions page of your GitHub repository
 
-#### Workflow Description
+### Method 2: Vercel Deployment
+
+You can deploy to Vercel with one click and set up automatic updates.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSeanium%2Ffeedme&env=LLM_API_KEY,LLM_API_BASE,LLM_NAME&envDescription=Required API key configuration&project-name=feedme&repository-name=feedme-deployment)
+
+**Note:** After deploying to Vercel, add the following secrets to your GitHub repository to enable scheduled updates:
+- `VERCEL_TOKEN`: Vercel API token
+- `VERCEL_ORG_ID`: Organization ID
+- `VERCEL_PROJECT_ID`: Project ID
+
+### Method 3: Hugging Face Spaces Deployment
+
+1. Create a new Space on Hugging Face (select "Static HTML" type)
+2. Add the following secrets to your GitHub repository:
+   - `HF_TOKEN`: Your Hugging Face API token
+   - `HF_SPACE`: Space ID (format: "username/spacename")
+3. Once configured, the Space will be automatically updated whenever the RSS data is updated
+
+## Workflow Description
 
 **Update Data and Deploy** (`update-deploy.yml`):
 - Trigger conditions:
@@ -131,14 +180,13 @@ This project uses GitHub Actions for automatic deployment to GitHub Pages, with 
   - Build static website
   - Deploy to GitHub Pages
 
-#### Custom Deployment Configuration
+## Custom Deployment Configuration
 
 - **Modify Update Frequency**: Edit the cron expression in `.github/workflows/update-deploy.yml`
   ```yml
   # For example, change to update once daily at midnight
   cron: '0 0 * * *'
   ```
-
 - **Adjust Retained Items**: Modify the `maxItemsPerFeed` value in `config/rss-config.js`
 
 - **Custom Domain Configuration**:
