@@ -34,6 +34,13 @@
 
 ---
 
+## Lightweight, Flexible, and Made for You
+
+- Want to **explore fresh updates** from various sources all in one place, but find most products too "heavy" (**no sign-up, no app download, no desktop software needed**)? A static page is the perfect fit — responsive, supports light/dark themes, and easy to browse on both desktop and mobile.
+- Want a **TLDR-style** quick glance? We built AI-powered summaries for that.
+- **Freely configure** RSS sources, AI models, and update frequency.
+- **Open-source, easy to fork, zero-cost, and effortless to self-host**.
+
 ## Key Features
 
 - **Multi-source RSS Aggregation**: Fetch and integrate RSS content from multiple information sources
@@ -122,8 +129,6 @@ docker exec -it feedme pnpm update-feeds
 ### Method 1: GitHub Pages Deployment
 
 This project uses GitHub Actions for automatic deployment to GitHub Pages, with a single workflow handling both data updates and website deployment.
-
-#### Deployment Steps
 
 1. **Fork or Clone the Repository** to your GitHub account
 
