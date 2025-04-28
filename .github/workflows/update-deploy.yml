@@ -47,7 +47,6 @@ jobs:
           LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
           LLM_NAME: ${{ secrets.LLM_NAME }}
 
-      # --- 修改：使用 Artifact 传递数据 ---
       - name: 上传数据 Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -74,7 +73,6 @@ jobs:
       - name: 安装依赖
         run: pnpm install
 
-      # --- 修改：下载数据 Artifact ---
       - name: 下载数据 Artifact
         uses: actions/download-artifact@v4
         with:
@@ -84,7 +82,6 @@ jobs:
       - name: 构建项目
         run: pnpm build
 
-      # 如果存在CNAME文件，确保它被复制到输出目录
       - name: 复制CNAME到输出目录
         run: |
           if [ -f "CNAME" ]; then
@@ -107,43 +104,49 @@ jobs:
         uses: actions/deploy-pages@v4
 
   deploy-vercel:
-    if: secrets.VERCEL_TOKEN != '' # 仅在提供了 Vercel Token 时运行
+    # --- 修改：检查启用变量 ---
+    # 仅当仓库变量 ENABLE_VERCEL_DEPLOYMENT 设置为 'true' 时运行
+    # 如果变量不存在或值不是 'true'，则跳过此作业
+    if: vars.ENABLE_VERCEL_DEPLOYMENT == 'true'
     needs: update-data # 依赖数据更新作业
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      # --- 修改：下载数据 Artifact ---
       - name: 下载数据 Artifact
         uses: actions/download-artifact@v4
         with:
-          name: data-artifact # 使用与上传时相同的名称
-          path: ./data       # 下载到指定目录
+          name: data-artifact
+          path: ./data
 
+      # 注意：这里仍然需要 VERCEL_TOKEN 等 secrets。
+      # 如果 ENABLE_VERCEL_DEPLOYMENT 为 true 但 secrets 未设置，此步骤会失败，这是预期的。
       - name: 部署到Vercel
-        uses: amondnet/vercel-action@v20 # 注意：确认此 Action 是否会处理构建，如果会，确保它在下载数据后能找到
+        uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./ # Vercel action 需要知道项目根目录
-          vercel-args: '--prod' # 部署到生产环境
+          working-directory: ./
+          vercel-args: '--prod'
 
   deploy-huggingface:
-    if: secrets.HF_TOKEN != '' # 仅在提供了 Hugging Face Token 时运行
+    # --- 修改：检查启用变量 ---
+    # 仅当仓库变量 ENABLE_HUGGINGFACE_DEPLOYMENT 设置为 'true' 时运行
+    # 如果变量不存在或值不是 'true'，则跳过此作业
+    if: vars.ENABLE_HUGGINGFACE_DEPLOYMENT == 'true'
     needs: update-data # 依赖数据更新作业
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      # --- 修改：下载数据 Artifact ---
       - name: 下载数据 Artifact
         uses: actions/download-artifact@v4
         with:
-          name: data-artifact # 使用与上传时相同的名称
-          path: ./data       # 下载到指定目录
+          name: data-artifact
+          path: ./data
 
       - name: 设置Node.js
         uses: actions/setup-node@v4
@@ -161,10 +164,12 @@ jobs:
       - name: 构建项目
         run: pnpm build
 
+      # 注意：这里仍然需要 HF_TOKEN 等 secrets。
+      # 如果 ENABLE_HUGGINGFACE_DEPLOYMENT 为 true 但 secrets 未设置，此步骤会失败，这是预期的。
       - name: 部署到Hugging Face
         uses: huggingface/hf-space-cli-action@main
         with:
           space_id: ${{ secrets.HF_SPACE }}
           token: ${{ secrets.HF_TOKEN }}
-          source: out     # 指定包含静态文件的构建输出目录
-          type: static   # 部署类型为静态网站
+          source: out
+          type: static
