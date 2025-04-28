@@ -2,19 +2,16 @@ name: 更新数据并部署
 
 on:
   schedule:
-    # 每3小时执行一次
     - cron: '0 */3 * * *'
   push:
-    branches: [main]  # 当推送到main分支时
-  workflow_dispatch:  # 允许手动触发
+    branches: [main]
+  workflow_dispatch:
 
-# 设置权限
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 允许一个并发部署 (针对 GitHub Pages)
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -23,110 +20,63 @@ jobs:
   update-data:
     runs-on: ubuntu-latest
     steps:
-      # === 数据更新部分 ===
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 设置Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: 安装pnpm
-        uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v3
         with:
           version: 8.4.0
-
-      - name: 安装依赖
-        run: pnpm install
-
-      - name: 更新RSS源数据
-        run: node scripts/update-feeds.js
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/update-feeds.js
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
           LLM_NAME: ${{ secrets.LLM_NAME }}
-
-      - name: 上传数据 Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: data-artifact # 定义 Artifact 名称
-          path: ./data       # 指定要上传的目录
-
-  deploy-github-pages:
-    needs: update-data # 依赖数据更新作业
-    runs-on: ubuntu-latest
-    steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 设置Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: 安装pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8.4.0
-
-      - name: 安装依赖
-        run: pnpm install
-
-      - name: 下载数据 Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: data-artifact # 使用与上传时相同的名称
-          path: ./data       # 下载到指定目录 (会覆盖或创建 ./data)
-
-      - name: 构建项目
-        run: pnpm build
-
-      - name: 复制CNAME到输出目录
-        run: |
-          if [ -f "CNAME" ]; then
-            cp CNAME ./out/
-            echo "已复制CNAME文件到输出目录"
-          else
-            echo "未找到CNAME文件，跳过"
-          fi
-
-      - name: 设置Pages
-        uses: actions/configure-pages@v4
-
-      - name: 上传构建结果 (Pages Artifact)
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
-      - name: 部署到GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-  deploy-vercel:
-    # --- 修改：检查启用变量 ---
-    # 仅当所需的secrets都存在时运行
-    needs: update-data # 依赖数据更新作业
-    runs-on: ubuntu-latest
-    env:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    if: env.VERCEL_TOKEN != '' && env.VERCEL_ORG_ID != '' && env.VERCEL_PROJECT_ID != ''
-    steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 下载数据 Artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: data-artifact
           path: ./data
 
-      # 注意：这里仍然需要 VERCEL_TOKEN 等 secrets。
-      # 如果上面的if条件通过但secrets未设置（几乎不可能），此步骤会失败，这是预期的。
-      - name: 部署到Vercel
-        uses: amondnet/vercel-action@v20
+  deploy-github-pages:
+    needs: update-data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.4.0
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: data-artifact
+          path: ./data
+      - run: pnpm build
+      - run: |
+          if [ -f "CNAME" ]; then
+            cp CNAME ./out/
+          fi
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-vercel:
+    needs: update-data
+    runs-on: ubuntu-latest
+    if: ${{ secrets.VERCEL_TOKEN && secrets.VERCEL_ORG_ID && secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: data-artifact
+          path: ./data
+      - uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
@@ -135,44 +85,24 @@ jobs:
           vercel-args: '--prod'
 
   deploy-huggingface:
-    # --- 修改：检查启用变量 ---
-    # 仅当所需的secrets都存在时运行
-    needs: update-data # 依赖数据更新作业
+    needs: update-data
     runs-on: ubuntu-latest
-    env:
-      HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      HF_SPACE: ${{ secrets.HF_SPACE }}
-    if: env.HF_TOKEN != '' && env.HF_SPACE != ''
+    if: ${{ secrets.HF_TOKEN && secrets.HF_SPACE }}
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 下载数据 Artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: data-artifact
           path: ./data
-
-      - name: 设置Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: 安装pnpm
-        uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v3
         with:
           version: 8.4.0
-
-      - name: 安装依赖
-        run: pnpm install
-
-      - name: 构建项目
-        run: pnpm build
-
-      # 注意：这里仍然需要 HF_TOKEN 等 secrets。
-      # 如果上面的if条件通过但secrets未设置（几乎不可能），此步骤会失败，这是预期的。
-      - name: 部署到Hugging Face
-        uses: huggingface/hf-space-cli-action@main
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - uses: huggingface/hf-space-cli-action@main
         with:
           space_id: ${{ secrets.HF_SPACE }}
           token: ${{ secrets.HF_TOKEN }}
