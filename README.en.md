@@ -151,22 +151,31 @@ This project uses GitHub Actions for automatic deployment to GitHub Pages, with 
 
 ### Method 2: Vercel Deployment
 
-You can deploy to Vercel with one click and set up automatic updates.
+You can directly import your GitHub repository to Vercel:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSeanium%2Ffeedme&env=LLM_API_KEY,LLM_API_BASE,LLM_NAME&envDescription=Required API key configuration&project-name=feedme&repository-name=feedme-deployment)
+1. Go to [Vercel Import page](https://vercel.com/import/git)
+2. Select "GitHub" and authorize access
+3. Search and select your forked FeedMe repository
+4. Keep default settings and click "Deploy"
 
-**Note:** After deploying to Vercel, add the following secrets to your GitHub repository to enable scheduled updates:
-- `VERCEL_TOKEN`: Vercel API token
-- `VERCEL_ORG_ID`: Organization ID
-- `VERCEL_PROJECT_ID`: Project ID
+**Configure automatic updates:**
+1. After Vercel deployment, obtain the following information:
+   - `VERCEL_TOKEN`: Create from [Vercel Tokens page](https://vercel.com/account/tokens)
+   - `VERCEL_ORG_ID`: Get from Project Settings -> General -> ID
+   - `VERCEL_PROJECT_ID`: Get from Project Settings -> General -> Project ID
+2. Add these values as Secrets in your GitHub repository (Settings -> Secrets and variables -> Actions)
+3. Add repository variable `ENABLE_VERCEL_DEPLOYMENT` and set it to `true` (Settings -> Secrets and variables -> Variables)
 
 ### Method 3: Hugging Face Spaces Deployment
 
+**Deployment Steps:**
 1. Create a new Space on Hugging Face (select "Static HTML" type)
 2. Add the following secrets to your GitHub repository:
    - `HF_TOKEN`: Your Hugging Face API token
    - `HF_SPACE`: Space ID (format: "username/spacename")
-3. Once configured, the Space will be automatically updated whenever the RSS data is updated
+3. Add repository variables:
+   - Go to repository "Settings" -> "Secrets and variables" -> "Variables"
+   - Add the variable `ENABLE_HF_DEPLOYMENT` and set it to `true`
 
 ## Workflow Description
 
@@ -178,7 +187,10 @@ You can deploy to Vercel with one click and set up automatic updates.
 - Execution content:
   - Fetch latest RSS content and generate summaries
   - Build static website
-  - Deploy to GitHub Pages
+  - Deploy based on repository variable settings:
+    - Always deploy to GitHub Pages
+    - Deploy to Vercel if `ENABLE_VERCEL_DEPLOYMENT` is `true`
+    - Deploy to Hugging Face if `ENABLE_HF_DEPLOYMENT` is `true`
 
 ## Custom Deployment Configuration
 
