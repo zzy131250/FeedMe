@@ -107,7 +107,7 @@ jobs:
     # --- 修改：检查启用变量 ---
     # 仅当仓库变量 ENABLE_VERCEL_DEPLOYMENT 设置为 'true' 时运行
     # 如果变量不存在或值不是 'true'，则跳过此作业
-    if: vars.ENABLE_VERCEL_DEPLOYMENT == 'true'
+    if: secrets.VERCEL_TOKEN && secrets.VERCEL_ORG_ID && secrets.VERCEL_PROJECT_ID
     needs: update-data # 依赖数据更新作业
     runs-on: ubuntu-latest
     steps:
@@ -135,7 +135,7 @@ jobs:
     # --- 修改：检查启用变量 ---
     # 仅当仓库变量 ENABLE_HUGGINGFACE_DEPLOYMENT 设置为 'true' 时运行
     # 如果变量不存在或值不是 'true'，则跳过此作业
-    if: vars.ENABLE_HUGGINGFACE_DEPLOYMENT == 'true'
+    if: secrets.HF_TOKEN && secrets.HF_SPACE
     needs: update-data # 依赖数据更新作业
     runs-on: ubuntu-latest
     steps:
