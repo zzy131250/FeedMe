@@ -161,8 +161,8 @@ You can directly import your GitHub repository to Vercel:
 **Configure automatic updates:**
 1. After Vercel deployment, obtain the following information:
    - `VERCEL_TOKEN`: Create from [Vercel Tokens page](https://vercel.com/account/tokens)
-   - `VERCEL_ORG_ID`: Get from Project Settings -> General -> ID
-   - `VERCEL_PROJECT_ID`: Get from Project Settings -> General -> Project ID
+   - `VERCEL_ORG_ID`: Find at [Account Settings](https://vercel.com/account) > General > bottom of the page
+   - `VERCEL_PROJECT_ID`: Find at [Vercel Dashboard](https://vercel.com/dashboard) > Your Project > Settings > General > bottom of the page
 2. Add these values as Secrets in your GitHub repository (Settings -> Secrets and variables -> Actions)
 3. Add repository variable `ENABLE_VERCEL_DEPLOYMENT` and set it to `true` (Settings -> Secrets and variables -> Variables)
 
