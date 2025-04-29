@@ -75,6 +75,43 @@ This project uses GitHub Actions for automatic deployment to GitHub Pages, with 
    
    Manually trigger the "Update Data and Deploy" workflow from the Actions page of your GitHub repository
 
+#### Workflow Description
+
+**Update Data and Deploy** (`update-deploy.yml`):
+- Trigger conditions:
+  - Scheduled execution (every 3 hours)
+  - Push to main branch
+  - Manual trigger
+- Execution content:
+  - Fetch latest RSS content and generate summaries
+  - Build static website
+  - Deploy based on repository variable settings:
+    - Always deploy to GitHub Pages
+    - Deploy to Vercel if `ENABLE_VERCEL_DEPLOYMENT` is `true`
+
+#### Custom Deployment Configuration
+
+- **Customize RSS Sources**:
+  Edit the `config/rss-config.js` file to modify or add RSS sources. Each source should include:
+  - Name
+  - URL
+  - Category
+
+- **Modify Update Frequency**: Edit the cron expression in `.github/workflows/update-deploy.yml`
+  ```yml
+  # For example, change to update once daily at midnight
+  cron: '0 0 * * *'
+  ```
+- **Adjust Retained Items**: Modify the `maxItemsPerFeed` value in `config/rss-config.js`
+
+- **Custom Domain Configuration**:
+  Please follow these instructions to avoid page resource loading issues:
+  - **Not using a custom domain**: Delete the `CNAME` file in the directory
+  - **Using a custom domain**: Add your custom domain in the GitHub Pages section of repository settings, and modify the CNAME file content to your custom domain
+
+- **Customize Summary Generation**:
+  If you need to customize the summary generation method, such as following a specific format or switching the summary language, modify the `prompt` variable in `scripts\update-feeds.js`
+
 ### Method 2: Vercel Deployment
 
 Import your GitHub repository to Vercel:
@@ -125,43 +162,6 @@ This method uses Docker to run FeedMe locally or on a server. It utilizes an in-
 5.  **Automatic Updates**
     The container will automatically run `pnpm update-feeds` and `pnpm build`, then restart the server based on the schedule in `config/crontab-docker` (defaults to every 3 hours).
     To modify the update frequency, edit the cron expression in the `config/crontab-docker` file (e.g., `0 */6 * * *` for updates every 6 hours).
-
-## Workflow Description
-
-**Update Data and Deploy** (`update-deploy.yml`):
-- Trigger conditions:
-  - Scheduled execution (every 3 hours)
-  - Push to main branch
-  - Manual trigger
-- Execution content:
-  - Fetch latest RSS content and generate summaries
-  - Build static website
-  - Deploy based on repository variable settings:
-    - Always deploy to GitHub Pages
-    - Deploy to Vercel if `ENABLE_VERCEL_DEPLOYMENT` is `true`
-
-## Custom Deployment Configuration
-
-- **Customize RSS Sources**:
-  Edit the `config/rss-config.js` file to modify or add RSS sources. Each source should include:
-  - Name
-  - URL
-  - Category
-
-- **Modify Update Frequency**: Edit the cron expression in `.github/workflows/update-deploy.yml`
-  ```yml
-  # For example, change to update once daily at midnight
-  cron: '0 0 * * *'
-  ```
-- **Adjust Retained Items**: Modify the `maxItemsPerFeed` value in `config/rss-config.js`
-
-- **Custom Domain Configuration**:
-  Please follow these instructions to avoid page resource loading issues:
-  - **Not using a custom domain**: Delete the `CNAME` file in the directory
-  - **Using a custom domain**: Add your custom domain in the GitHub Pages section of repository settings, and modify the CNAME file content to your custom domain
-
-- **Customize Summary Generation**:
-  If you need to customize the summary generation method, such as following a specific format or switching the summary language, modify the `prompt` variable in `scripts\update-feeds.js`
 
 ## Development Guide
 

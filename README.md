@@ -75,6 +75,44 @@
    
    在 GitHub 仓库的 Actions 页面手动触发"更新数据并部署"工作流
 
+#### 工作流说明
+
+**更新数据并部署** (`update-deploy.yml`)：
+- 触发条件：
+  - 定时执行（每 3 小时一次）
+  - 推送到 main 分支
+  - 手动触发
+- 执行内容：
+  - 获取最新 RSS 内容并生成摘要
+  - 构建静态网站
+  - 根据仓库变量设置决定部署目标:
+    - 总是部署到 GitHub Pages
+    - 如果 `ENABLE_VERCEL_DEPLOYMENT` 为 `true` 则部署到Vercel
+
+#### 自定义部署配置
+
+- **自定义 RSS 源**：
+  编辑 `config/rss-config.js` 文件以修改或添加 RSS 源。每个源需要包含：
+  - 名称
+  - URL
+  - 分类
+
+- **修改更新频率**: 编辑 `.github/workflows/update-deploy.yml` 中的 cron 表达式
+  ```yml
+  # 例如，改为每天凌晨更新一次
+  cron: '0 0 * * *'
+  ```
+
+- **调整保留条目数**: 修改 `config/rss-config.js` 中的 `maxItemsPerFeed` 值
+
+- **自定义域名配置**:
+  请按照以下内容设置，避免出现页面资源加载异常：
+  - **不使用自定义域名**: 请删除目录下的 `CNAME` 文件
+  - **使用自定义域名**: 在仓库设置的 GitHub Pages 部分添加自定义域名，并修改 CNAME 文件内容为自定义域名
+
+- **自定义摘要生成**：
+  如果需要自定义摘要生成方法，比如遵循特定格式或切换摘要语言，请修改 `scripts\update-feeds.js` 中的 `prompt` 变量
+
 ### 方式二：Vercel 部署
 
 将你的 GitHub 仓库导入到 Vercel：
@@ -125,44 +163,6 @@
 5.  **自动更新**
     容器将根据 `config/crontab-docker` 中的配置（默认为每 3 小时）自动执行 `pnpm update-feeds` 和 `pnpm build`，并重新启动服务。
     如需修改更新频率，请编辑 `config/crontab-docker` 文件中的 cron 表达式（例如 `0 */6 * * *` 表示每 6 小时执行一次）。
-
-## 工作流说明
-
-**更新数据并部署** (`update-deploy.yml`)：
-- 触发条件：
-  - 定时执行（每 3 小时一次）
-  - 推送到 main 分支
-  - 手动触发
-- 执行内容：
-  - 获取最新 RSS 内容并生成摘要
-  - 构建静态网站
-  - 根据仓库变量设置决定部署目标:
-    - 总是部署到 GitHub Pages
-    - 如果 `ENABLE_VERCEL_DEPLOYMENT` 为 `true` 则部署到Vercel
-
-## 自定义部署配置
-
-- **自定义 RSS 源**：
-  编辑 `config/rss-config.js` 文件以修改或添加 RSS 源。每个源需要包含：
-  - 名称
-  - URL
-  - 分类
-
-- **修改更新频率**: 编辑 `.github/workflows/update-deploy.yml` 中的 cron 表达式
-  ```yml
-  # 例如，改为每天凌晨更新一次
-  cron: '0 0 * * *'
-  ```
-
-- **调整保留条目数**: 修改 `config/rss-config.js` 中的 `maxItemsPerFeed` 值
-
-- **自定义域名配置**:
-  请按照以下内容设置，避免出现页面资源加载异常：
-  - **不使用自定义域名**: 请删除目录下的 `CNAME` 文件
-  - **使用自定义域名**: 在仓库设置的 GitHub Pages 部分添加自定义域名，并修改 CNAME 文件内容为自定义域名
-
-- **自定义摘要生成**：
-  如果需要自定义摘要生成方法，比如遵循特定格式或切换摘要语言，请修改 `scripts\update-feeds.js` 中的 `prompt` 变量
 
 ## 开发指南
 
