@@ -5,31 +5,38 @@
 <div align="center">
 
 [![Next.js](https://img.shields.io/badge/Next.js-111111?style=flat&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![shadcn/ui](https://img.shields.io/badge/shadcn/ui-111111?style=flat&logo=shadcnui&logoColor=white)](https://ui.shadcn.com/)
 [![RSS](https://img.shields.io/badge/RSS-Feed-orange?style=flat&logo=rss)](https://en.wikipedia.org/wiki/RSS)
 [![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai&logoColor=white)](https://openai.com/)
 [![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/Seanium/feedme/update-deploy.yml?branch=main&style=flat&logo=github)](https://github.com/Seanium/feedme/actions)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Active-4EA94B?style=flat&logo=github)](https://feedme.icu)
+[![Vercel](https://img.shields.io/badge/Vercel-Ready-000000?style=flat&logo=vercel&logoColor=white)](https://feed-me-delta.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![RSS Update](https://img.shields.io/badge/RSS%20Update-Every%203h-lightgrey?style=flat&logo=github-actions)](https://github.com/Seanium/feedme/blob/main/.github/workflows/update-deploy.yml)
 
 </div>
 
 <p align="center">
-  <b>AI-powered RSS reader, deployable to GitHub Pages</b>
+  <b>AI-powered RSS reader, deployable to GitHub Pages or with Docker</b>
 </p>
 
 <p align="center">
   <a href="https://feedme.icu" target="_blank">🌐 Live Demo</a> •
   <a href="#key-features">✨ Features</a> •
+<<<<<<< HEAD
+  <a href="#local-development">💻 Development</a> •
+  <a href="#production-deployment">🚀 Deployment</a>
+=======
   <a href="#tech-stack">🔧 Tech Stack</a> •
   <a href="#deployment-guide">🚀 Deployment</a> •
   <a href="#development-guide">💻 Development</a>
+>>>>>>> b6b1f1c78801b1df77cf673323179d3e857f7659
 </p>
 
 ---
@@ -50,6 +57,74 @@
 - **Theme Switching**: Support for light and dark themes
 - **Static Deployment**: Can be deployed on GitHub Pages and other static hosting services
 
+<<<<<<< HEAD
+## Local Development
+
+### Method 1: Using Docker
+
+```bash
+# Clone the repository
+git clone https://github.com/Seanium/feedme.git
+cd feedme
+
+# Copy the example environment file and fill in your API keys
+cp .env.example .env
+
+# Start Docker container
+docker-compose up
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to view the application
+
+Update RSS data:
+```bash
+# Run update command in a new terminal window
+docker exec -it feedme pnpm update-feeds
+# After data update, the Next.js development server automatically detects changes and updates the page
+```
+
+### Method 2: Step-by-Step Setup
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Seanium/feedme.git
+   cd feedme
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   pnpm install
+   ```
+
+3. **Configure Environment Variables**
+   
+   Copy the example environment file and edit it:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Fill in the following content:
+   ```
+   LLM_API_KEY=your_api_key
+   LLM_API_BASE=LLM service API base URL (e.g., https://api.siliconflow.cn/v1)
+   LLM_NAME=model name (e.g., THUDM/GLM-4-9B-0414)
+   ```
+   These environment variables are used to configure the article summary generation feature and need to be obtained from an LLM service provider
+
+4. **Update RSS Data**
+   ```bash
+   pnpm update-feeds
+   ```
+   This command fetches RSS sources and generates summaries, saving them to the `data` directory
+
+5. **Start the Development Server**
+   ```bash
+   pnpm dev
+   ```
+   Visit [http://localhost:3000](http://localhost:3000) to view the application
+
+## Production Deployment
+=======
 ## Tech Stack
 
 - **Framework**: [Next.js 15](https://nextjs.org/), [React 19](https://react.dev/)
@@ -60,6 +135,7 @@
 - **RSS Parsing**: [rss-parser](https://www.npmjs.com/package/rss-parser)
 
 ## Deployment Guide
+>>>>>>> b6b1f1c78801b1df77cf673323179d3e857f7659
 
 ### Method 1: GitHub Pages Deployment
 
