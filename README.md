@@ -19,6 +19,7 @@
 [![Vercel](https://img.shields.io/badge/Vercel-Ready-000000?style=flat&logo=vercel&logoColor=white)](https://feed-me-delta.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![RSS Update](https://img.shields.io/badge/RSS%20Update-Every%203h-lightgrey?style=flat&logo=github-actions)](https://github.com/Seanium/feedme/blob/main/.github/workflows/update-deploy.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Seanium/FeedMe)
 
 </div>
 
