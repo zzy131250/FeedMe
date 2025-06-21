@@ -29,14 +29,19 @@ export const config = {
       category: "科研论文",
     },
     {
-      name: "LINUX DO 今日热门",
-      url: "https://r4l.deno.dev/https://linux.do/top.rss?period=daily",
+      name: "lwn.net",
+      url: "https://lwn.net/headlines/rss",
       category: "论坛",
     },
     {
       name: "V2EX 今日热门",
-      url: "https://rsshub.rssforever.com/v2ex/topics/hot",
+      url: "https://rsshub.app/v2ex/topics/hot",
       category: "论坛",
+    },
+    {
+      name: "云原生社区（中国）",
+      url: "https://rsshub.app/cloudnative/blog",
+      category: "博客",
     },
   ],
   maxItemsPerFeed: 30,
