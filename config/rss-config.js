@@ -49,7 +49,7 @@ export const config = {
       category: "博客",
     },
   ],
-  maxItemsPerFeed: 30,
+  maxItemsPerFeed: 10,
   dataPath: "./data",
 }
 
