@@ -19,13 +19,18 @@ export const config = {
       category: "科技资讯",
     },
     {
-      name: "Github 今日热门",
-      url: "https://rsshub.rssforever.com/github/trending/daily/any",
+      name: "36Kr热榜",
+      url: "https://rsshub.app/36kr/hot-list",
+      category: "科技资讯",
+    },
+    {
+      name: "Github Trending",
+      url: "https://rsshub.app/github/trending/daily/javascript/en",
       category: "代码项目",
     },
     {
       name: "Hugging Face 每日论文",
-      url: "https://rsshub.rssforever.com/huggingface/daily-papers",
+      url: "https://rsshub.app/huggingface/daily-papers",
       category: "科研论文",
     },
     {
